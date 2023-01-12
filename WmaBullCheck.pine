@@ -1,0 +1,29 @@
+//Eğer mavi  çizgi turuncuya yaklaşırsa ve aradaki fark kapanmaya
+//başlarsa düşüş beklenmesi ve boğa sürecinin bittiği anlamı çıkartılabilir.
+/ Ağırlıklı Ortalama Göstergesi
+// Bu gösterge, bir veri kümesine uygulanacak bir dönemler toplamına bölünen veri noktalarının sayısına göre ağırlıklı bir ortalama hesaplar.
+
+study(title="Ağırlıklı Ortalama", shorttitle="WMA", overlay=true)
+
+// Dönemleri ayarlayın
+period1 = input(120, minval=1, title="Period 1")
+period2 = input(210, minval=1, title="Period 2")
+
+// Ağırlıklı ortalamaları hesaplayın
+wma1 = wma(close, period1)*1.318
+wma2 = wma(close, period2)*1.618
+
+// Grafikleri çizin
+plot(wma1, color=orange, title="Period 1",linewidth=2)
+plot(wma2, color=blue, title="Period 2",linewidth=2)
+
+// Eksen etiketlerini ayarlayın
+// xlabel("Zaman")
+// ylabel("Fiyat")
+
+// Ortalamaların kesişim yerlerini işaretleyin
+wmaCross = wma1 > wma2 and wma1[1] <= wma2[1]
+plotshape(wmaCross, style=shape.triangleup, location=location.abovebar, color=green, size=size.small)
+
+wmaCross2 = wma1 < wma2 and wma1[1] >= wma2[1]
+plotshape(wmaCross2, style=shape.triangledown, location=location.belowbar, color=red, size=size.small)

@@ -1,0 +1,19 @@
+//@version=4
+study("My script")
+
+
+// Define the RSI period
+rsi_period = 14
+
+// Calculate RSI
+rsi = rsi(close, rsi_period)
+
+// Define the threshold for RSI to generate buy signal
+rsi_threshold = 25
+
+// Check if RSI drops below threshold
+buy = rsi < rsi_threshold
+
+// Plot buy signal on chart
+plotshape(series=buy,style = shape.arrowup, location=location.top, color=color.green,size = size.huge)
+    

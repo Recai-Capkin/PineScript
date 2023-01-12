@@ -1,0 +1,23 @@
+//@version=4
+study("5-day Green Candle Signal",overlay=true)
+//Sıkıntılar var düzeltilecek
+// Define variable for counting consecutive green candles
+var greenCount = 0
+var bar_count = 500
+var buy=false
+// Loop through each bar on the chart
+for i = 0 to bar_count - 1
+    // Check if current bar is green
+    if close[i] > open[i]
+        greenCount := greenCount + 1
+    else
+        greenCount := 0
+
+    // Check if consecutive green candle count is 5
+    if greenCount == 3
+        // Generate buy signal
+        buy = true
+    else
+        buy = false
+    // Plot buy signal on chart
+plotshape(series=buy,style=shape.triangleup, location=location.belowbar, color=color.green)
