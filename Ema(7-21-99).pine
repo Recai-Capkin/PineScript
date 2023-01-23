@@ -5,7 +5,8 @@ study("Exponential Moving Averages", overlay=true)
 
 length1 = input(7, minval=1)
 length2 = input(21, minval=1)
-length3 = input(99, minval=1)
+//114 kapitülasyon çizgisidir eğer altında kalırsa kapitülasyon bekle
+length3 = input(114, minval=1)
 
 
 ema1_value = ema(close, length1)
@@ -16,3 +17,11 @@ ema3_value = ema(close, length3)
 plot(ema1_value, color= color.orange, linewidth=2,  title="EMA 7-day")
 plot(ema2_value, color=color.green, linewidth=2,  title="EMA 21-day")
 plot(ema3_value, color=color.blue, linewidth=2,  title="EMA 99-day")
+
+
+cross1 = crossover(ema1_value, ema2_value)
+
+cross2 = crossover(ema2_value, ema3_value)
+
+plotshape(cross1, style=shape.triangleup, location=location.belowbar, color=color.orange, size = size.normal)
+plotshape(cross2, style=shape.triangleup, location=location.belowbar, color=color.green, size = size.normal)
