@@ -1,0 +1,18 @@
+//@version=4
+study("50-200 MA Crossover", overlay=true)
+
+// 50 gün ve 200 gün hareketli ortalamaları hesapla
+ma50 = sma(close, 50)
+ma200 = sma(close, 200)
+
+// kesişim noktalarını tespit etmek için değişkenler oluştur
+bullish_cross = crossover(ma50, ma200)
+bearish_cross = crossunder(ma50, ma200)
+
+// kesişim noktalarında ok işareti çizdir
+plotshape(bullish_cross, style=shape.triangleup, location=location.abovebar, color=color.green, size=size.small, text="Bullish Cross")
+plotshape(bearish_cross, style=shape.triangledown, location=location.belowbar, color=color.red, size=size.small, text="Bearish Cross")
+
+// 50 gün ve 200 gün hareketli ortalamalarını çizdir
+plot(ma200, color=color.rgb(243, 33, 33))
+plot(ma50, color=color.rgb(0, 255, 0))
