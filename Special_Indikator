@@ -1,0 +1,31 @@
+//@version=4
+//Çalışmalar devam etmektedir
+// Ağırlıklı Ortalama Göstergesi
+// Bu gösterge, bir veri kümesine uygulanacak bir dönemler toplamına bölünen veri noktalarının sayısına göre ağırlıklı bir ortalama hesaplar.
+
+study(title="Ağırlıklı Ortalama", shorttitle="WMA", overlay=true)
+
+// günlük hacim verilerini getir
+volume1 = security(syminfo.tickerid, "D", volume)
+// Dönemleri ayarlayın
+period1 = input(129, minval=1, title="Period 1")
+period2 = input(210, minval=1, title="Period 2")
+
+// Ağırlıklı ortalamaları hesaplayın
+wma1 = wma(close, period1)
+wma2 = wma(close, period2)
+
+// Grafikleri çizin
+plot((wma1/(volume1*0.00000000618)), color=color.orange, title="Period 1",linewidth=2)
+plot((wma2/(volume1*0.00000000618)), color=color.blue, title="Period 2",linewidth=2)
+
+ // Eksen etiketlerini ayarlayın
+// xlabel("Zaman")
+// ylabel("Fiyat")
+
+// Ortalamaların kesişim yerlerini işaretleyin
+wmaCross = wma1 > wma2 and wma1[1] <= wma2[1]
+plotshape(wmaCross, style=shape.triangleup, location=location.abovebar, color=color.green, size=size.small)
+
+wmaCross2 = wma1 < wma2 and wma1[1] >= wma2[1]
+plotshape(wmaCross2, style=shape.triangledown, location=location.belowbar, color=color.red, size=size.small)
