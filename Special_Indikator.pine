@@ -16,6 +16,7 @@ wma1 = wma(close, period1)
 wma2 = wma(close, period2)
 
 // Grafikleri çizin
+//Buradaki değer fed para arzı ile korele olabilir
 plot((wma1/(volume1*0.00000000618)), color=color.orange, title="Period 1",linewidth=2)
 plot((wma2/(volume1*0.00000000618)), color=color.blue, title="Period 2",linewidth=2)
 
